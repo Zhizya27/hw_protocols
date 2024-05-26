@@ -4,6 +4,7 @@ import requests
 from prettytable import PrettyTable
 import time
 
+
 def run_tracert(ip):
     try:
         result = subprocess.run(["tracert", "-4", "-d", ip], capture_output=True, text=True, check=True)
@@ -12,10 +13,12 @@ def run_tracert(ip):
         print("Error: Не удалось выполнить команду трассировки маршрута.")
         return ""
 
+
 def extract_ip_addresses(stdout):
     reg = re.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")
     ip_addresses = reg.findall(stdout)[1:]
     return ip_addresses
+
 
 def get_info(ip_address):
     try:
@@ -33,6 +36,7 @@ def get_info(ip_address):
     except Exception as e:
         return "error", "error", "error"
 
+
 def tracert(ip):
     stdout = run_tracert(ip)
     if not stdout:
@@ -47,9 +51,11 @@ def tracert(ip):
 
     print(table)
 
+
 def main():
     target = input("Введите IP-адрес или доменное имя: ")
     tracert(target)
+
 
 if __name__ == "__main__":
     main()
